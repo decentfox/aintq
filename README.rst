@@ -30,7 +30,23 @@ AintQ Is Not Task Queue - a Python asyncio task queue on PostgreSQL.
 Features
 --------
 
-* TODO
+AintQ is not quite a traditional task queue like Celery_. It runs no workers,
+instead it sends HTTP requests to your own web server to execute the tasks. The
+purpose of AintQ is to provide a robust broker to queue and trigger task
+execution, while being as compact as possible.
+
+* Use PostgreSQL_ as a broker and your own web server as worker, for less moving parts
+* AintQ server simply loads tasks from the broker, sends HTTP requests and stores the response
+* AintQ server may run standalone or inside your asyncio web server
+* Easy to use client API to create tasks and retrieve results
+* Support cron-like scheduled repeating tasks
+* Support retrying, priority and dependency
+* Focus on consistency, stability and robustness
+* Provide real-time statistics API
+
+**AintQ is a very new project and under construction. Even though we internally
+use similar code in some production environment, AintQ is a complete rewrite
+and may probably bite your nose off before it gets stabilized.**
 
 Credits
 -------
@@ -39,3 +55,5 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _Celery: http://www.celeryproject.org/
+.. _PostgreSQL: https://www.postgresql.org/
