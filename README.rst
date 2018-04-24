@@ -53,6 +53,15 @@ Credits
 
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
+References:
+
+* http://www.celeryproject.org/
+* https://github.com/chanks/que
+* https://www.pgcon.org/2016/schedule/track/Applications/929.en.html
+* https://github.com/QueueClassic/queue_classic
+* https://github.com/florentx/pgqueue
+* https://wiki.postgresql.org/wiki/PGQ_Tutorial
+
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 .. _Celery: http://www.celeryproject.org/
