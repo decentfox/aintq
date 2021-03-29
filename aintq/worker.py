@@ -203,7 +203,7 @@ class AintQConsumer:
 
         # Always delete the task row after execution regardless of success or
         # failure, in order to avoid duplicate execution
-        await task.delete()
+        await Task.delete.where(Task.ctid == task.ctid).gino.status()
 
     def _tick(self):
         """Scheduled trigger."""
