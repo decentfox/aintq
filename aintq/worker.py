@@ -39,9 +39,10 @@ class AintQConsumer:
     
     """
 
-    def __init__(self, size=8, loop=None):
+    def __init__(self, aintq, size=8, loop=None):
         if loop is None:
             loop = asyncio.get_event_loop()
+        self.aintq = aintq
         self._loop = loop
 
         self._semaphore = asyncio.Semaphore(loop=loop)
@@ -194,7 +195,7 @@ class AintQConsumer:
         # Create a savepoint for actual task
         async with db.transaction() as tx:
             try:
-                result = await task.run()
+                result = await task.run(self.aintq)
             except Exception:
                 traceback.print_exc()
                 tx.raise_rollback()
@@ -233,7 +234,7 @@ class AintQConsumer:
 
         # Start workers
         for _ in range(self._maxsize - self._size):
-            asyncio.ensure_future(self.worker(), loop=self._loop)
+            asyncio.create_task(self.worker())
 
         # Listen to new task events
         async with db.acquire() as conn:
