@@ -3,7 +3,7 @@
 """Main module."""
 from aintq.db import db
 from aintq.task import Task
-from aintq.utils import pickle_data
+from aintq.utils import pickle_data, generate_task_name
 from aintq.worker import AintQConsumer
 
 
@@ -30,11 +30,14 @@ class Aintq(object):
         return decorator
 
     def register(self, func):
-        self.registry[func.__name__] = func
+        self.registry[generate_task_name(func)] = func
 
     async def execute(self, func, *args, **kwargs):
         async with db.transaction():
-            await Task.create(name=func.__name__, params=pickle_data(*args, **kwargs))
+            await Task.create(
+                name=generate_task_name(func),
+                params=pickle_data(*args, **kwargs)
+            )
 
 
 class TaskWrapper(object):
